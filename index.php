@@ -14,77 +14,39 @@
 
         <section class="content content-grid">
 
-            <div class="content-grid-item col3-12 col4-12-m col6-12-s">
-                <a href="libro.html">
-                    <div class="content-grid-item-img"><img src="img/libro-1.jpg" alt="el alt de la imagen"></div>
-                    <div class="content-grid-item-title">
-                        <h2>Titulo</h2>
-                    </div>
-                </a>
-            </div>
+        <?php
+$args = array(
+    'post_type' => 'libro',
+    'posts_per_page' => 8
+);
 
-            <div class="content-grid-item col3-12 col4-12-m col6-12-s">
-                <a href="libro.html">
-                    <div class="content-grid-item-img"><img src="img/libro-2.jpg" alt="el alt de la imagen"></div>
-                    <div class="content-grid-item-title">
-                        <h2>Titulo</h2>
-                    </div>
-                </a>
-            </div>
+$query = new WP_Query($args);
 
-            <div class="content-grid-item col3-12 col4-12-m col6-12-s">
-                <a href="libro.html">
-                    <div class="content-grid-item-img"><img src="img/libro-3.jpg" alt="el alt de la imagen"></div>
-                    <div class="content-grid-item-title">
-                        <h2>Titulo</h2>
-                    </div>
-                </a>
-            </div>
+if ($query->have_posts()) :
+    while ($query->have_posts()) : $query->the_post();
+        ?>
+        <div class="content-grid-item col3-12 col4-12-m col6-12-s">
+            <a href="<?php the_permalink(); ?>">
+                <div class="content-grid-item-img">
+                    <?php if (has_post_thumbnail()) :
+                        the_post_thumbnail('thumbnail'); 
+                    else : ?>
+                        <img src="<?php echo get_template_directory_uri() . '/img/default.jpg'; ?>" alt="Default Image">
+                    <?php endif; ?>
+                </div>
+                <div class="content-grid-item-title">
+                    <h2><?php the_title(); ?></h2> 
+                </div>
+            </a>
+        </div>
+    <?php
+    endwhile;
+    wp_reset_postdata(); // Reset post data query
+else :
+    ?>
+    <p><?php _e('No hay libros disponibles.'); ?></p>
+<?php endif; ?>
 
-            <div class="content-grid-item col3-12 col4-12-m col6-12-s">
-                <a href="libro.html">
-                    <div class="content-grid-item-img"><img src="img/libro-1.jpg" alt="el alt de la imagen"></div>
-                    <div class="content-grid-item-title">
-                        <h2>Titulo</h2>
-                    </div>
-                </a>
-            </div>
-
-            <div class="content-grid-item col3-12 col4-12-m col6-12-s">
-                <a href="libro.html">
-                    <div class="content-grid-item-img"><img src="img/libro-2.jpg" alt="el alt de la imagen"></div>
-                    <div class="content-grid-item-title">
-                        <h2>Titulo</h2>
-                    </div>
-                </a>
-            </div>
-
-            <div class="content-grid-item col3-12 col4-12-m col6-12-s">
-                <a href="libro.html">
-                    <div class="content-grid-item-img"><img src="img/libro-3.jpg" alt="el alt de la imagen"></div>
-                    <div class="content-grid-item-title">
-                        <h2>Titulo</h2>
-                    </div>
-                </a>
-            </div>
-
-            <div class="content-grid-item col3-12 col4-12-m col6-12-s">
-                <a href="libro.html">
-                    <div class="content-grid-item-img"><img src="img/libro-1.jpg" alt="el alt de la imagen"></div>
-                    <div class="content-grid-item-title">
-                        <h2>Titulo</h2>
-                    </div>
-                </a>
-            </div>
-
-            <div class="content-grid-item col3-12 col4-12-m col6-12-s">
-                <a href="libro.html">
-                    <div class="content-grid-item-img"><img src="img/libro-2.jpg" alt="el alt de la imagen"></div>
-                    <div class="content-grid-item-title">
-                        <h2>Titulo</h2>
-                    </div>
-                </a>
-            </div>
 
         </section>
 
